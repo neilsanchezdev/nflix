@@ -97,23 +97,27 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
 
-const login = () => {
-  console.log('Logging in with', email.value, password.value)
+const login = async () => {
+  try {
+    if (email.value?.trim() !== 'nd.sanchezq@gmail.com' || password.value?.trim() !== '1234') {
+      alert('Email and password are wrong')
+      console.error('Email and password are wrong')
+      return
+    }
+
+    console.log('Logged in user: ', email.value, password.value)
+
+    router.push('/')
+  } catch (error) {
+    console.error('Error logging in:', error)
+  }
 }
 </script>
-
-<style scoped>
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-</style>
